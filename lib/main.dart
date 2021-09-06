@@ -1,9 +1,11 @@
-// import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:go_dutch_clone/controller.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Get.put(MainPageController());
   runApp(const MyApp());
 }
 
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.purple,
@@ -33,18 +35,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  final controller = Get.find<MainPageController>();
 
   @override
   void initState() {
@@ -60,21 +51,75 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return SafeArea(
       child: Scaffold(
+        // drawer: const Drawer(),
+        endDrawer: const Drawer(),
+        key: controller.scaffoldKey,
         backgroundColor: Colors.blueGrey[100],
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: Container(
-          height: kToolbarHeight,
-          width: MediaQuery.of(context).size.width,
-          color: Colors.grey[200],
-        ),
+            height: kToolbarHeight,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.grey[200],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                    onTap: () {
+                      controller.page.value = 0;
+                    },
+                    child: Obx(
+                      () => Container(
+                        alignment: Alignment.center,
+                        height: 40,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: controller.page.value == 0
+                              ? Colors.purple.withOpacity(0.4)
+                              : Colors.transparent,
+                        ),
+                        child: Text(
+                          'Balance',
+                          style: TextStyle(
+                            color: controller.page.value == 0
+                                ? Colors.purple
+                                : Colors.grey,
+                            fontSize: controller.page.value == 0 ? 14 : 13,
+                          ),
+                        ),
+                      ),
+                    )),
+                GestureDetector(
+                  onTap: () {
+                    controller.page.value = 1;
+                  },
+                  child: Obx(
+                    () => Container(
+                      alignment: Alignment.center,
+                      height: 40,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: controller.page.value == 1
+                            ? Colors.purple.withOpacity(0.4)
+                            : Colors.transparent,
+                      ),
+                      child: Text(
+                        'Transaction',
+                        style: TextStyle(
+                          color: controller.page.value == 1
+                              ? Colors.purple
+                              : Colors.grey,
+                          fontSize: controller.page.value == 1 ? 14 : 13,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            )),
 
         body: Center(
           child: Column(
@@ -84,28 +129,15 @@ class _MyHomePageState extends State<MyHomePage> {
               const SizedBox(
                 height: 10,
               ),
-              Container(
-                height: 70,
-                child: Placeholder(),
+              Obx(
+                () => mainPageList[controller.page.value],
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                child: Placeholder(),
-                height: 100,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: Placeholder(),
-              )
             ],
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
+          onPressed: () {},
+          // onPressed: _incrementCounter,
           tooltip: 'Increment',
           child: const Icon(Icons.add),
         ), // This trailing comma makes auto-formatting nicer for build methods.
@@ -114,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class AppBarWidget extends StatelessWidget {
+class AppBarWidget extends GetView<MainPageController> {
   const AppBarWidget({
     Key? key,
   }) : super(key: key);
@@ -145,7 +177,8 @@ class AppBarWidget extends StatelessWidget {
             AppBarIconWidget(
               icon: const Icon(Icons.menu),
               onTap: () {
-
+                // ScaffoldMessenger.of(context).mounted
+                controller.scaffoldKey.currentState?.openEndDrawer();
               },
             )
           ],
