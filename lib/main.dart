@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_dutch_clone/controller/controller.dart';
 import 'package:go_dutch_clone/pages/add_people_page.dart';
+import 'package:go_dutch_clone/pages/edit_profile_page.dart';
 import 'package:go_dutch_clone/pages/main_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -79,7 +80,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(
+                            () => const EditProfilePage(),
+                            transition: Transition.downToUp,
+                          );
+                        },
                         child: const Text('Edit Profile'),
                       ),
                     ],
