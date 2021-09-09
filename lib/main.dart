@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:go_dutch_clone/controller.dart';
+import 'package:go_dutch_clone/controller/controller.dart';
+import 'package:go_dutch_clone/pages/main_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,12 +12,12 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.blueGrey[200],
         primarySwatch: Colors.purple,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -39,13 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.blueGrey[100],
-        statusBarBrightness: Brightness.dark,
-      ),
-    );
-
     super.initState();
   }
 
@@ -121,26 +114,197 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             )),
 
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              const AppBarWidget(),
-              const SizedBox(
-                height: 10,
-              ),
-              Obx(
-                () => mainPageList[controller.page.value],
-              ),
-            ],
-          ),
-        ),
+        body: const MainPage(),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.to(
+              () => const AddPeoplePage(),
+              curve: Curves.fastLinearToSlowEaseIn,
+              transition: Transition.downToUp,
+            );
+          },
           // onPressed: _incrementCounter,
           tooltip: 'Increment',
           child: const Icon(Icons.add),
         ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
+    );
+  }
+}
+
+class AddPeoplePage extends StatelessWidget {
+  const AddPeoplePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        centerTitle: true,
+        title: const Text(
+          'Add People',
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+      bottomNavigationBar: SizedBox(
+        height: 100,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Create Group',
+              style: TextStyle(
+                color: Colors.purple,
+              ),
+            ),
+            const Text(
+              'or',
+              style: TextStyle(
+                color: Colors.grey,
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  fixedSize: Size(
+                context.width,
+                50,
+              )),
+              onPressed: () {
+                Get.to(
+                  () => const CreateExpensePage(),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  transition: Transition.downToUp,
+                );
+              },
+              child: const Text(
+                'CREATE EXPENSE',
+              ),
+            ),
+          ],
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          children: const [
+            TextField(
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  Icons.search,
+                ),
+                border: OutlineInputBorder(),
+                hintText: 'Scarch contacts or phone number',
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CreateExpensePage extends StatelessWidget {
+  const CreateExpensePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // var _selectedLocation;
+    var _locations = ["Equally", "Unqually"];
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        centerTitle: true,
+        title: const Text(
+          'Expense Details',
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(
+            'Amount',
+            style: TextStyle(
+              color: Colors.grey.shade700,
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const SizedBox(
+            height: 40,
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: '',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Description',
+            style: TextStyle(
+              color: Colors.grey.shade700,
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const SizedBox(
+            height: 40,
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: '',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Paid',
+            style: TextStyle(
+              color: Colors.grey.shade700,
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const SizedBox(
+            height: 40,
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: '',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              Row(
+                children: [
+                  const Text('Split'),
+                  DropdownButton<String>(
+                    value: 'hello',
+                    // value: _selectedLocation,
+                    onChanged: (_) {
+                      // _selectedLocation = ;
+                    },
+                    items: _locations.map((String location) {
+                      return DropdownMenuItem<String>(
+                        child: Text(location),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ]),
       ),
     );
   }

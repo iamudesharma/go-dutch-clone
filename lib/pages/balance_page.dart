@@ -1,37 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-class MainPageController extends GetxController {
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-
-  var page = 0.obs;
-
-  var friendandgrouppage = 0.obs;
-}
-
-List<Widget> friendandgruops = [
-  const FirendPage(),
-  const GruopPage(),
-];
-
-class GruopPage extends StatelessWidget {
-  const GruopPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('gruopPage'),
-      ),
-    );
-  }
-}
-
-List<Widget> mainPageList = [
-  const BalancePage(),
-  const TransactionsPage(),
-];
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:go_dutch_clone/controller/controller.dart';
+import 'package:go_dutch_clone/model.dart/data.dart';
 
 class BalancePage extends GetView<MainPageController> {
   const BalancePage({Key? key}) : super(key: key);
@@ -102,7 +73,7 @@ class BalancePage extends GetView<MainPageController> {
         ),
         Obx(
           () => SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               height: context.height / 2,
               child: friendandgruops
                   .elementAt(controller.friendandgrouppage.value),
@@ -162,7 +133,7 @@ class BalanceCardWidget extends StatelessWidget {
               Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
@@ -187,11 +158,11 @@ class BalanceCardWidget extends StatelessWidget {
                           ]),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
@@ -222,28 +193,6 @@ class BalanceCardWidget extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class TransactionsPage extends StatelessWidget {
-  const TransactionsPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Transactions'),
-    );
-  }
-}
-
-class FirendPage extends StatelessWidget {
-  const FirendPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text('friends'),
     );
   }
 }
