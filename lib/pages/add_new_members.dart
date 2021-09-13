@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_dutch_clone/helper/helpers.dart';
 
 class AddNewMembersPage extends StatelessWidget {
   const AddNewMembersPage({Key? key}) : super(key: key);
@@ -7,25 +8,11 @@ class AddNewMembersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        leading: IconButton(
+      appBar: Helper.customAppBar(
           onPressed: () {
             Get.back();
           },
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-        ),
-        title: const Text(
-          'Add New Members',
-          style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
-      ),
+          title: 'Add New Member'),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(

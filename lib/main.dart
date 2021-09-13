@@ -1,14 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_dutch_clone/controller/contact_controller.dart';
 import 'package:go_dutch_clone/controller/controller.dart';
+import 'package:go_dutch_clone/controller/login_controller.dart';
 import 'package:go_dutch_clone/pages/add_people_page.dart';
 import 'package:go_dutch_clone/pages/edit_profile_page.dart';
+import 'package:go_dutch_clone/pages/login_page.dart';
 import 'package:go_dutch_clone/pages/main_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   Get.put(MainPageController());
+  Get.put(ContactController());
+  Get.put(LoginController());
   runApp(const MyApp());
 }
 
@@ -25,7 +32,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
         textTheme: GoogleFonts.aBeeZeeTextTheme(),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Get.find<LoginController>().auth.currentUser == null
+          ? const LoginPage()
+          : const MyHomePage(title: 'Go Dutch App'),
     );
   }
 }
@@ -41,6 +51,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final controller = Get.find<MainPageController>();
+  final userController = Get.find<LoginController>();
 
   @override
   void initState() {
@@ -58,40 +69,58 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               DrawerHeader(
-                  child: Row(
-                // mainAxisAlignment: ,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const CircleAvatar(
-                    radius: 35,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const Text('Your name'),
-                      const Text('Your Phone Number'),
-                      const Text(
-                        "Upi ID not add",
-                        style: TextStyle(
-                          color: Colors.red,
+                child: Row(
+                  // mainAxisAlignment: ,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      radius: 35,
+                      backgroundImage:
+                          NetworkImage(userController.user.value!.photoURL!),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          userController.user.value!.displayName!,
                         ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Get.to(
-                            () => const EditProfilePage(),
-                            transition: Transition.downToUp,
-                          );
-                        },
-                        child: const Text('Edit Profile'),
-                      ),
-                    ],
-                  ),
-                ],
-              )),
+                        // Text(
+                        //   userController.user.value?.phoneNumber! ?? '',
+                        // ),
+                        const Text(
+                          "Upi ID not add",
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Get.to(
+                              () => const EditProfilePage(),
+                              transition: Transition.downToUp,
+                            );
+                          },
+                          child: const Text('Edit Profile'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: ElevatedButton(
+                  onPressed: () {
+                    userController.logOut().then((value) => Get.offAll(
+                          () => const LoginPage(),
+                        ));
+                  },
+                  child: const Text('Log Out'),
+                ),
+              )
             ],
           ),
         ),

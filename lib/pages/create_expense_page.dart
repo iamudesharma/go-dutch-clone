@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:go_dutch_clone/helper/helpers.dart';
 
 class CreateExpensePage extends StatelessWidget {
   const CreateExpensePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var _selectedLocation = 'Equally';
-    var _locations = ["Equally", "Unqually"];
+    // var _selectedLocation = 'Equally';
+    // var _locations = ["Equally", "Unqually"];
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        centerTitle: true,
-        title: const Text(
-          'Expense Details',
-        ),
+      appBar: Helper.customAppBar(
+        onPressed: () {
+          Get.back();
+        },
+        title: 'Expense Details',
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

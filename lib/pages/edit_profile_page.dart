@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_dutch_clone/helper/helpers.dart';
 
 class EditProfilePage extends StatelessWidget {
   const EditProfilePage({Key? key}) : super(key: key);
@@ -7,24 +8,29 @@ class EditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        title: const Text(
-          'Edit Profile',
-          style: TextStyle(
-            color: Colors.black,
+      bottomNavigationBar: GestureDetector(
+        onTap: () {
+          Get.back();
+        },
+        child: Container(
+          height: 50,
+          color: Colors.purple,
+          child: const Center(
+            child: Text(
+              "Save",
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
-        ),
+      ),
+      appBar: Helper.customAppBar(
+        onPressed: () {
+          Get.back();
+        },
+        title: 'Edit Profile',
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

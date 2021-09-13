@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:go_dutch_clone/controller/controller.dart';
+import 'package:go_dutch_clone/helper/helpers.dart';
 import 'package:go_dutch_clone/model.dart/data.dart';
 
 class BalancePage extends GetView<MainPageController> {
@@ -16,7 +17,9 @@ class BalancePage extends GetView<MainPageController> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(
+                Helper.padding,
+              ),
             ),
             color: Colors.blueGrey.shade200,
             child: Row(
@@ -32,13 +35,14 @@ class BalancePage extends GetView<MainPageController> {
                       child: Container(
                           width: context.width * 0.44,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
+                              borderRadius:
+                                  BorderRadius.circular(Helper.padding),
                               color: controller.friendandgrouppage.value == 0
                                   ? Colors.grey[200]
                                   : Colors.transparent),
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Center(child: Text('Friends')),
+                          child: Padding(
+                            padding: EdgeInsets.all(Helper.padding / 2),
+                            child: const Center(child: Text('Friends')),
                           )),
                     ),
                   ),
@@ -53,13 +57,13 @@ class BalancePage extends GetView<MainPageController> {
                       child: Container(
                         // width: context.width * 0.435,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
+                            borderRadius: BorderRadius.circular(Helper.padding),
                             color: controller.friendandgrouppage.value == 1
                                 ? Colors.grey[200]
                                 : Colors.transparent),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(Helper.padding / 2),
+                          child: const Center(
                             child: Text('Gruops'),
                           ),
                         ),
@@ -93,7 +97,7 @@ class BalanceCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: EdgeInsets.symmetric(horizontal: Helper.padding),
       child: Card(
         color: Colors.grey.shade200,
         shape:

@@ -28,10 +28,18 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   # firebase_core: ^1.6.0
+  contacts_service: ^0.6.1
+  firebase_auth: ^3.1.1
+  firebase_core: ^1.6.0
   flutter:
     sdk: flutter
+  flutter_facebook_auth: ^3.5.1
+  flutter_otp_text_field: ^1.0.0
+  font_awesome_flutter: ^9.1.0
   get: ^4.3.8
   google_fonts: ^2.1.0
+  google_sign_in: ^5.1.0
+  permission_handler: ^8.1.6
   # page_transition: ^2.0.2
 
 dev_dependencies:

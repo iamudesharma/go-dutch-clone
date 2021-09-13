@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_dutch_clone/helper/helpers.dart';
 import 'package:go_dutch_clone/pages/add_new_members.dart';
 
 class CreateGroupExpensePage extends StatelessWidget {
@@ -8,22 +9,11 @@ class CreateGroupExpensePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Create Group',
-          style: TextStyle(color: Colors.black),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-        ),
+      appBar: Helper.customAppBar(
+        onPressed: () {
+          Get.back();
+        },
+        title: 'Create Group',
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),

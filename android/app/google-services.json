@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "878297430603",
+    "project_id": "go-dutch-b501f",
+    "storage_bucket": "go-dutch-b501f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878297430603:android:07828f1b4d1c23e37d6bce",
+        "android_client_info": {
+          "package_name": "com.example.go_dutch_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878297430603-23ocmjitb9crg30lsdkp0apkvcegg26e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiI3yUxnPnGbfcgxYzhtUfN7UGh8BkaKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878297430603-23ocmjitb9crg30lsdkp0apkvcegg26e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

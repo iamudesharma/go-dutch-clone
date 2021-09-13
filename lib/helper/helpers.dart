@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Helper {
+  static double padding = 20.0;
   static customAppBar({String? title, void Function()? onPressed}) {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0.0,
-      leading: IconButton(
-        onPressed: () {
-          onPressed;
-        },
-        icon: const Icon(
-          Icons.arrow_back,
+      leading: GestureDetector(
+        onTap: onPressed,
+        child: const Icon(
+          Icons.arrow_back_ios,
           color: Colors.black,
         ),
       ),
