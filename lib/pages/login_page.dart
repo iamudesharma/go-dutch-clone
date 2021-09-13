@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:go_dutch_clone/bindings/create_new_account_bindings.dart';
 import 'package:go_dutch_clone/controller/login_controller.dart';
 import 'package:go_dutch_clone/helper/helpers.dart';
 import 'package:go_dutch_clone/main.dart';
+import 'package:go_dutch_clone/pages/create_account_page.dart';
 
 class LoginPage extends GetView<LoginController> {
   const LoginPage({Key? key}) : super(key: key);
@@ -90,11 +92,16 @@ class LoginPage extends GetView<LoginController> {
                 children: [
                   ElevatedButton(
                     onPressed: () {},
-                    child: Text('Login'),
+                    child: const Text('Login'),
                   ),
                   OutlinedButton(
-                    onPressed: () {},
-                    child: Text('Create New Account'),
+                    onPressed: () {
+                      Get.to(
+                        () => const CreateNewAccount(),
+                        binding: CreateNewAccountBinding(),
+                      );
+                    },
+                    child: const Text('Create New Account'),
                   ),
                 ],
               )
